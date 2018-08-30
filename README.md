@@ -1,3 +1,6 @@
+[![Build Status](https://travis-ci.org/KailasJanardhanan/nifi_terraform_generator.svg?branch=master)](https://travis-ci.org/KailasJanardhanan/nifi_terraform_generator)
+[![Code Coverage](https://codecov.io/github/KailasJanardhanan/nifi_terraform_generator/coverage.svg)](https://codecov.io/gh/KailasJanardhanan/nifi_terraform_generator)
+
 ## What
 A component which takes nifi flow xml file as input and converts it into terraform script for creating/updating a flow on nifi
 
