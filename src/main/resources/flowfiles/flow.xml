@@ -1,0 +1,432 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<flowController encoding-version="1.3">
+  <maxTimerDrivenThreadCount>10</maxTimerDrivenThreadCount>
+  <maxEventDrivenThreadCount>5</maxEventDrivenThreadCount>
+  <registries/>
+  <rootGroup>
+    <id>eb6f5ac6-0164-1000-c7a3-9ce214dca17d</id>
+    <name>NiFi Flow</name>
+    <position x="0.0" y="0.0"/>
+    <comment/>
+    <processGroup>
+      <id>13997565-0165-1000-ffff-ffff8c3560cc</id>
+      <name>PGP_B65B7Q_Read_Kafka_And_Write2Folder</name>
+      <position x="2815.3312377929688" y="793.5512924194336"/>
+      <comment/>
+      <processor>
+        <id>13997760-0165-1000-0000-000028d32682</id>
+        <name>PCR_39C7VK_PutFile</name>
+        <position x="99.62115478515625" y="259.9949493408203"/>
+        <styles/>
+        <comment/>
+        <class>org.apache.nifi.processors.standard.PutFile</class>
+        <bundle>
+          <group>org.apache.nifi</group>
+          <artifact>nifi-standard-nar</artifact>
+          <version>1.6.0</version>
+        </bundle>
+        <maxConcurrentTasks>1</maxConcurrentTasks>
+        <schedulingPeriod>0 sec</schedulingPeriod>
+        <penalizationPeriod>30 sec</penalizationPeriod>
+        <yieldPeriod>1 sec</yieldPeriod>
+        <bulletinLevel>WARN</bulletinLevel>
+        <lossTolerant>false</lossTolerant>
+        <scheduledState>STOPPED</scheduledState>
+        <schedulingStrategy>TIMER_DRIVEN</schedulingStrategy>
+        <executionNode>ALL</executionNode>
+        <runDurationNanos>0</runDurationNanos>
+        <property>
+          <name>Directory</name>
+          <value>/opt/outputfiles</value>
+        </property>
+        <property>
+          <name>Conflict Resolution Strategy</name>
+          <value>fail</value>
+        </property>
+        <property>
+          <name>Create Missing Directories</name>
+          <value>true</value>
+        </property>
+        <property>
+          <name>Maximum File Count</name>
+          <value>100</value>
+        </property>
+        <property>
+          <name>Last Modified Time</name>
+        </property>
+        <property>
+          <name>Permissions</name>
+        </property>
+        <property>
+          <name>Owner</name>
+        </property>
+        <property>
+          <name>Group</name>
+        </property>
+        <autoTerminatedRelationship>success</autoTerminatedRelationship>
+        <autoTerminatedRelationship>failure</autoTerminatedRelationship>
+      </processor>
+      <processor>
+        <id>13997781-0165-1000-0000-000040772af9</id>
+        <name>PCR_39S7VK_ConsumeKafka</name>
+        <position x="100.5539578460598" y="-161.75196772207204"/>
+        <styles/>
+        <comment/>
+        <class>org.apache.nifi.processors.kafka.pubsub.ConsumeKafka</class>
+        <bundle>
+          <group>org.apache.nifi</group>
+          <artifact>nifi-kafka-0-9-nar</artifact>
+          <version>1.6.0</version>
+        </bundle>
+        <maxConcurrentTasks>1</maxConcurrentTasks>
+        <schedulingPeriod>2 sec</schedulingPeriod>
+        <penalizationPeriod>30 sec</penalizationPeriod>
+        <yieldPeriod>1 sec</yieldPeriod>
+        <bulletinLevel>WARN</bulletinLevel>
+        <lossTolerant>false</lossTolerant>
+        <scheduledState>STOPPED</scheduledState>
+        <schedulingStrategy>TIMER_DRIVEN</schedulingStrategy>
+        <executionNode>ALL</executionNode>
+        <runDurationNanos>0</runDurationNanos>
+        <property>
+          <name>bootstrap.servers</name>
+          <value>localhost:9092</value>
+        </property>
+        <property>
+          <name>security.protocol</name>
+          <value>PLAINTEXT</value>
+        </property>
+        <property>
+          <name>sasl.kerberos.service.name</name>
+        </property>
+        <property>
+          <name>ssl.context.service</name>
+        </property>
+        <property>
+          <name>topic</name>
+          <value>GITLABCI_TEMP_TOPIC_FOR_TF_GENERATOR</value>
+        </property>
+        <property>
+          <name>group.id</name>
+          <value>Kafka_read_group4_gitlab</value>
+        </property>
+        <property>
+          <name>auto.offset.reset</name>
+          <value>latest</value>
+        </property>
+        <property>
+          <name>key-attribute-encoding</name>
+          <value>utf-8</value>
+        </property>
+        <property>
+          <name>message-demarcator</name>
+        </property>
+        <property>
+          <name>max.poll.records</name>
+          <value>1</value>
+        </property>
+        <property>
+          <name>max-uncommit-offset-wait</name>
+          <value>1 secs</value>
+        </property>
+      </processor>
+      <processor>
+        <id>1399776c-0165-1000-ffff-ffffad71aa40</id>
+        <name>PCR_39C7VV_PutFile</name>
+        <position x="738.1544646702412" y="271.4341495751339"/>
+        <styles/>
+        <comment/>
+        <class>org.apache.nifi.processors.standard.PutFile</class>
+        <bundle>
+          <group>org.apache.nifi</group>
+          <artifact>nifi-standard-nar</artifact>
+          <version>1.6.0</version>
+        </bundle>
+        <maxConcurrentTasks>1</maxConcurrentTasks>
+        <schedulingPeriod>0 sec</schedulingPeriod>
+        <penalizationPeriod>30 sec</penalizationPeriod>
+        <yieldPeriod>1 sec</yieldPeriod>
+        <bulletinLevel>WARN</bulletinLevel>
+        <lossTolerant>false</lossTolerant>
+        <scheduledState>STOPPED</scheduledState>
+        <schedulingStrategy>TIMER_DRIVEN</schedulingStrategy>
+        <executionNode>ALL</executionNode>
+        <runDurationNanos>0</runDurationNanos>
+        <property>
+          <name>Directory</name>
+          <value>/opt/kafkadetails</value>
+        </property>
+        <property>
+          <name>Conflict Resolution Strategy</name>
+          <value>fail</value>
+        </property>
+        <property>
+          <name>Create Missing Directories</name>
+          <value>true</value>
+        </property>
+        <property>
+          <name>Maximum File Count</name>
+        </property>
+        <property>
+          <name>Last Modified Time</name>
+        </property>
+        <property>
+          <name>Permissions</name>
+        </property>
+        <property>
+          <name>Owner</name>
+        </property>
+        <property>
+          <name>Group</name>
+        </property>
+        <autoTerminatedRelationship>success</autoTerminatedRelationship>
+        <autoTerminatedRelationship>failure</autoTerminatedRelationship>
+      </processor>
+      <processor>
+        <id>1399774d-0165-1000-0000-00005141dfa0</id>
+        <name>PCR_39C8VK_AttributesToJSON</name>
+        <position x="742.7474365234375" y="-160.99065017700195"/>
+        <styles/>
+        <comment/>
+        <class>org.apache.nifi.processors.standard.AttributesToJSON</class>
+        <bundle>
+          <group>org.apache.nifi</group>
+          <artifact>nifi-standard-nar</artifact>
+          <version>1.6.0</version>
+        </bundle>
+        <maxConcurrentTasks>1</maxConcurrentTasks>
+        <schedulingPeriod>0 sec</schedulingPeriod>
+        <penalizationPeriod>30 sec</penalizationPeriod>
+        <yieldPeriod>1 sec</yieldPeriod>
+        <bulletinLevel>WARN</bulletinLevel>
+        <lossTolerant>false</lossTolerant>
+        <scheduledState>STOPPED</scheduledState>
+        <schedulingStrategy>TIMER_DRIVEN</schedulingStrategy>
+        <executionNode>ALL</executionNode>
+        <runDurationNanos>0</runDurationNanos>
+        <property>
+          <name>Attributes List</name>
+          <value>kafka.offset</value>
+        </property>
+        <property>
+          <name>attributes-to-json-regex</name>
+        </property>
+        <property>
+          <name>Destination</name>
+          <value>flowfile-content</value>
+        </property>
+        <property>
+          <name>Include Core Attributes</name>
+          <value>true</value>
+        </property>
+        <property>
+          <name>Null Value</name>
+          <value>false</value>
+        </property>
+        <autoTerminatedRelationship>failure</autoTerminatedRelationship>
+      </processor>
+      <connection>
+        <id>13997dca-0165-1000-ffff-fffff3e2f394</id>
+        <name>CON_HG434J_Success</name>
+        <bendPoints/>
+        <labelIndex>1</labelIndex>
+        <zIndex>0</zIndex>
+        <sourceId>13997781-0165-1000-0000-000040772af9</sourceId>
+        <sourceGroupId>13997565-0165-1000-ffff-ffff8c3560cc</sourceGroupId>
+        <sourceType>PROCESSOR</sourceType>
+        <destinationId>13997760-0165-1000-0000-000028d32682</destinationId>
+        <destinationGroupId>13997565-0165-1000-ffff-ffff8c3560cc</destinationGroupId>
+        <destinationType>PROCESSOR</destinationType>
+        <relationship>success</relationship>
+        <maxWorkQueueSize>10000</maxWorkQueueSize>
+        <maxWorkQueueDataSize>1 GB</maxWorkQueueDataSize>
+        <flowFileExpiration>0 mins</flowFileExpiration>
+      </connection>
+      <connection>
+        <id>13997d93-0165-1000-0000-000001431247</id>
+        <name>CON_HG534J_Success</name>
+        <bendPoints/>
+        <labelIndex>1</labelIndex>
+        <zIndex>0</zIndex>
+        <sourceId>1399774d-0165-1000-0000-00005141dfa0</sourceId>
+        <sourceGroupId>13997565-0165-1000-ffff-ffff8c3560cc</sourceGroupId>
+        <sourceType>PROCESSOR</sourceType>
+        <destinationId>1399776c-0165-1000-ffff-ffffad71aa40</destinationId>
+        <destinationGroupId>13997565-0165-1000-ffff-ffff8c3560cc</destinationGroupId>
+        <destinationType>PROCESSOR</destinationType>
+        <relationship>success</relationship>
+        <maxWorkQueueSize>10000</maxWorkQueueSize>
+        <maxWorkQueueDataSize>1 GB</maxWorkQueueDataSize>
+        <flowFileExpiration>0 mins</flowFileExpiration>
+      </connection>
+      <connection>
+        <id>13997dcd-0165-1000-ffff-ffffb5d8f0d1</id>
+        <name>CON_HG334J_Success</name>
+        <bendPoints>
+          <bendPoint x="586.21044921875" y="-90.96503448486328"/>
+        </bendPoints>
+        <labelIndex>1</labelIndex>
+        <zIndex>0</zIndex>
+        <sourceId>13997781-0165-1000-0000-000040772af9</sourceId>
+        <sourceGroupId>13997565-0165-1000-ffff-ffff8c3560cc</sourceGroupId>
+        <sourceType>PROCESSOR</sourceType>
+        <destinationId>1399774d-0165-1000-0000-00005141dfa0</destinationId>
+        <destinationGroupId>13997565-0165-1000-ffff-ffff8c3560cc</destinationGroupId>
+        <destinationType>PROCESSOR</destinationType>
+        <relationship>success</relationship>
+        <maxWorkQueueSize>10</maxWorkQueueSize>
+        <maxWorkQueueDataSize>1 GB</maxWorkQueueDataSize>
+        <flowFileExpiration>0 mins</flowFileExpiration>
+      </connection>
+    </processGroup>
+    <processGroup>
+      <id>13997570-0165-1000-0000-000027f9a74e</id>
+      <name>PGP_H76388_GenerateFile_And_Write2Kafka</name>
+      <position x="2814.4511613313866" y="518.9200807473777"/>
+      <comment/>
+      <processor>
+        <id>13997795-0165-1000-ffff-ffffc3cb6f8f</id>
+        <name>PCR_39S7VK_PublishKafka</name>
+        <position x="684.9999253129413" y="50.99999645526049"/>
+        <styles/>
+        <comment/>
+        <class>org.apache.nifi.processors.kafka.pubsub.PublishKafka</class>
+        <bundle>
+          <group>org.apache.nifi</group>
+          <artifact>nifi-kafka-0-9-nar</artifact>
+          <version>1.6.0</version>
+        </bundle>
+        <maxConcurrentTasks>1</maxConcurrentTasks>
+        <schedulingPeriod>0 sec</schedulingPeriod>
+        <penalizationPeriod>30 sec</penalizationPeriod>
+        <yieldPeriod>1 sec</yieldPeriod>
+        <bulletinLevel>WARN</bulletinLevel>
+        <lossTolerant>false</lossTolerant>
+        <scheduledState>STOPPED</scheduledState>
+        <schedulingStrategy>TIMER_DRIVEN</schedulingStrategy>
+        <executionNode>ALL</executionNode>
+        <runDurationNanos>0</runDurationNanos>
+        <property>
+          <name>bootstrap.servers</name>
+          <value>localhost:9092</value>
+        </property>
+        <property>
+          <name>security.protocol</name>
+          <value>PLAINTEXT</value>
+        </property>
+        <property>
+          <name>sasl.kerberos.service.name</name>
+        </property>
+        <property>
+          <name>ssl.context.service</name>
+        </property>
+        <property>
+          <name>topic</name>
+          <value>GITLABCI_TEMP_TOPIC_FOR_TF_GENERATOR</value>
+        </property>
+        <property>
+          <name>acks</name>
+          <value>0</value>
+        </property>
+        <property>
+          <name>kafka-key</name>
+        </property>
+        <property>
+          <name>key-attribute-encoding</name>
+          <value>utf-8</value>
+        </property>
+        <property>
+          <name>message-demarcator</name>
+        </property>
+        <property>
+          <name>max.request.size</name>
+          <value>1 MB</value>
+        </property>
+        <property>
+          <name>ack.wait.time</name>
+          <value>5 secs</value>
+        </property>
+        <property>
+          <name>max.block.ms</name>
+          <value>5 sec</value>
+        </property>
+        <property>
+          <name>partitioner.class</name>
+          <value>org.apache.kafka.clients.producer.internals.DefaultPartitioner</value>
+        </property>
+        <property>
+          <name>compression.type</name>
+          <value>none</value>
+        </property>
+        <autoTerminatedRelationship>success</autoTerminatedRelationship>
+        <autoTerminatedRelationship>failure</autoTerminatedRelationship>
+      </processor>
+      <processor>
+        <id>1399776b-0165-1000-ffff-ffffdce42268</id>
+        <name>PCR_39S7VK_GenerateFlowFile</name>
+        <position x="172.8369140625" y="49.5263671875"/>
+        <styles/>
+        <comment/>
+        <class>org.apache.nifi.processors.standard.GenerateFlowFile</class>
+        <bundle>
+          <group>org.apache.nifi</group>
+          <artifact>nifi-standard-nar</artifact>
+          <version>1.6.0</version>
+        </bundle>
+        <maxConcurrentTasks>1</maxConcurrentTasks>
+        <schedulingPeriod>2 sec</schedulingPeriod>
+        <penalizationPeriod>30 sec</penalizationPeriod>
+        <yieldPeriod>1 sec</yieldPeriod>
+        <bulletinLevel>WARN</bulletinLevel>
+        <lossTolerant>false</lossTolerant>
+        <scheduledState>STOPPED</scheduledState>
+        <schedulingStrategy>TIMER_DRIVEN</schedulingStrategy>
+        <executionNode>ALL</executionNode>
+        <runDurationNanos>0</runDurationNanos>
+        <property>
+          <name>File Size</name>
+          <value>0B</value>
+        </property>
+        <property>
+          <name>Batch Size</name>
+          <value>1</value>
+        </property>
+        <property>
+          <name>Data Format</name>
+          <value>Text</value>
+        </property>
+        <property>
+          <name>Unique FlowFiles</name>
+          <value>false</value>
+        </property>
+        <property>
+          <name>generate-ff-custom-text</name>
+          <value>{ "ID": "SGML","SortAs": "SGML" }</value>
+        </property>
+        <property>
+          <name>character-set</name>
+          <value>UTF-8</value>
+        </property>
+      </processor>
+      <connection>
+        <id>13997dcb-0165-1000-ffff-fffff7f07e93</id>
+        <name>CON_HG234J_Success</name>
+        <bendPoints/>
+        <labelIndex>1</labelIndex>
+        <zIndex>0</zIndex>
+        <sourceId>1399776b-0165-1000-ffff-ffffdce42268</sourceId>
+        <sourceGroupId>13997570-0165-1000-0000-000027f9a74e</sourceGroupId>
+        <sourceType>PROCESSOR</sourceType>
+        <destinationId>13997795-0165-1000-ffff-ffffc3cb6f8f</destinationId>
+        <destinationGroupId>13997570-0165-1000-0000-000027f9a74e</destinationGroupId>
+        <destinationType>PROCESSOR</destinationType>
+        <relationship>success</relationship>
+        <maxWorkQueueSize>10</maxWorkQueueSize>
+        <maxWorkQueueDataSize>1 GB</maxWorkQueueDataSize>
+        <flowFileExpiration>0 mins</flowFileExpiration>
+      </connection>
+    </processGroup>
+  </rootGroup>
+  <controllerServices/>
+  <reportingTasks/>
+</flowController>
