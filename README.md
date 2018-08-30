@@ -61,6 +61,7 @@ This project provides a utility `NifiApiUtil.java` to generate curl commands tha
 ```
 sudo ./terraform init
 sudo ./terraform plan -out=plan.out
-sudo ./terraform apply plan.out```
+sudo ./terraform apply plan.out
+```
 * Terraform will identify the previous state and will apply the delta/change of the flow to the existing flow.
 
