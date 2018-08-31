@@ -20,9 +20,6 @@ https://github.com/Glympse/terraform-provider-nifi/
 ## Limitations
 * Does not support remote process group(experimental)
 
-## Where can I see the Test reports?
-https://s3-us-west-2.amazonaws.com/bdd-reports.nonprod.mlpipeline.r53.nordstrom.net/tf_generator/index.html
-
 ## How to generate terraform scripts from existing nifi cluster?
 * From an existing nifi cluster, extract the flow.xml.gz from master node located in the folder - `{Nifi HOME}/conf`.
 * copy the extracted flow.xml to `terraform-nifi-flow-generator\src\main\resources\flowfiles` folder of the project.
