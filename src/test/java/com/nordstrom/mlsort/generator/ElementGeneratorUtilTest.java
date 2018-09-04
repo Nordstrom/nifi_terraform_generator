@@ -298,7 +298,7 @@ public class ElementGeneratorUtilTest {
   @Test
   public void testGetProperty() throws IOException {
     assertTrue("Failed to get property",
-        "172.16.71.125:8080".equals(ElementGeneratorUtil.getProperty("nifi_machine")));
+        "MACHINE_IP:8080".equals(ElementGeneratorUtil.getProperty("nifi_machine")));
   }
 
 }
