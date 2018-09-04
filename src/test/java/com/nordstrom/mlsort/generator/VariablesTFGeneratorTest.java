@@ -15,7 +15,7 @@ import com.nordstrom.mlsort.tf.TFUtil;
  */
 public class VariablesTFGeneratorTest {
 
-  private final static String nifiMachine = "MACHINE_IP:8080";
+  private final static String nifiMachine = "localhost:8080";
   private final static String rootProcessGroup = "aaaa-bbbb-cccc-dddd";
   private final static String expected = "variable \"nifi_host\" {" + TFUtil.NEWLINE + TFUtil.TAB
       + "description = \"NiFi instance where the flow should be created\"" + TFUtil.NEWLINE
