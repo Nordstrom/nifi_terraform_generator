@@ -65,3 +65,10 @@ sudo ./terraform apply plan.out
 ```
 * Terraform will identify the previous state and will apply the delta/change of the flow to the existing flow.
 
+### Terraform Script Generation
+
+![Terraform Generation](./Terraform_Script_Generation.png)
+
+### Nifi Production deployment using terraform
+
+![Nifi Prod deployment using Terraform](./Nifi_Production_deployment_using_terraform.png)
