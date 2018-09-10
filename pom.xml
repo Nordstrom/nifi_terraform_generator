@@ -3,7 +3,7 @@
 	<modelVersion>4.0.0</modelVersion>
 	<groupId>com.nordstrom.mlsort</groupId>
 	<artifactId>nifi_terraform_generator</artifactId>
-	<version>0.0.1-SNAPSHOT</version>
+	<version>1.1</version>
 	<packaging>jar</packaging>
 
 	<name>TFGenerator</name>
@@ -108,9 +108,7 @@
 					<consoleOutput>true</consoleOutput>
 					<failsOnError>true</failsOnError>
 					<linkXRef>false</linkXRef>
-					<excludes>**/jaxb/**/*</excludes>
 				</configuration>
-
 			</plugin>
 		</plugins>
 	</build>
