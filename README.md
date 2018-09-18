@@ -31,6 +31,9 @@ Eg - ```  <rootGroup>
     Set as `root_element=34900dd5-0161-1000-b7a0-ed93f5fa490d`
 
 * Run the main class ```com.nordstrom.mlsort.TFGenerator```
+* Alternatively you can use maven commands to generate the terraform files without modifying any source files. 
+* As explained above, download the flow.xml to some local folder.
+* Run the command ```mvn clean compile exec:java -Dexec.args="<nifi_machine> <root_element> <complete path to the flow.xml>"``` 
 * terraform files will be generated at the `terraform-nifi-flow-generator\target` folder. 
 
 ## How to use terraform scripts to setup a flow on NIFI cluster?

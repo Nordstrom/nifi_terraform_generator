@@ -36,14 +36,24 @@ public class TFGeneratorHelper {
   public static void executeMainActions(final String[] args)
       throws URISyntaxException, IOException, JAXBException {
 
-    // To get the data from properties
-    String rootElementId = ElementGeneratorUtil.getProperty("root_element");
-    String nifiMachine = ElementGeneratorUtil.getProperty("nifi_machine");
+    String nifiMachine = null;
+    String rootElementId = null;
+    if (args.length >= 2) {
+      nifiMachine = args[0];
+      rootElementId = args[1];
+    } else {
+      // To get the data from properties
+      nifiMachine = ElementGeneratorUtil.getProperty("nifi_machine");
+      rootElementId = ElementGeneratorUtil.getProperty("root_element");
+    }
 
     if (StringUtils.isNotBlank(nifiMachine) && StringUtils.isNotBlank(rootElementId)) {
-
+      String xmlFilePath = "";
+      if (args.length == 3) {
+        xmlFilePath = args[2];
+      }
       // Get the JAXB element by parsing the flow xml
-      JAXBElement<FlowControllerType> root = parseFlowXml();
+      JAXBElement<FlowControllerType> root = parseFlowXml(xmlFilePath);
       FlowControllerType flowController = root.getValue();
       Map<String, String> tfNameContentMap = new LinkedHashMap<>();
       // To hold all the parent terraform elements
@@ -95,7 +105,8 @@ public class TFGeneratorHelper {
           ElementGeneratorUtil.getControllerServices(finalTerraformScriptParent);
 
       // The possibility of common elements is very less, being on a safer side
-      writeCommonElements(rootElementId, tfNameContentMap, ID_NAME_MAP_TO_REPLACE, controllerServices);
+      writeCommonElements(rootElementId, tfNameContentMap, ID_NAME_MAP_TO_REPLACE,
+          controllerServices);
 
       System.out.println("The output successfully generated at target folder");
     } else {
