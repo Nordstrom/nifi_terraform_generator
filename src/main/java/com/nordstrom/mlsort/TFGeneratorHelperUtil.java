@@ -1,6 +1,8 @@
 package com.nordstrom.mlsort;
 
 import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.io.InputStream;
 import java.util.Map;
@@ -13,6 +15,7 @@ import javax.xml.bind.Unmarshaller;
 import javax.xml.transform.Source;
 import javax.xml.transform.stream.StreamSource;
 import org.apache.commons.io.FileUtils;
+import org.apache.commons.lang3.StringUtils;
 import com.nordstrom.mlsort.generator.ElementGeneratorUtil;
 import com.nordstrom.mlsort.generator.VariablesTFGenerator;
 import com.nordstrom.mlsort.jaxb.FlowControllerType;
@@ -86,11 +89,18 @@ public class TFGeneratorHelperUtil {
    * 
    * @return JAXBElement<FlowControllerType>
    * @throws JAXBException JAXBException
+   * @throws FileNotFoundException
    */
-  public static JAXBElement<FlowControllerType> parseFlowXml() throws JAXBException {
-    // Parse xml start
+  public static JAXBElement<FlowControllerType> parseFlowXml(String filePath)
+      throws JAXBException, FileNotFoundException {
+    InputStream inputStream = null;
+    if (StringUtils.isBlank(filePath)) {
+      // Parse xml start
+      inputStream = TFGenerator.class.getResourceAsStream(FLOW_XML_PATH);
+    } else {
+      inputStream = new FileInputStream(new File(filePath));
+    }
     JAXBContext jaxbContext = JAXBContext.newInstance(FlowControllerType.class);
-    InputStream inputStream = TFGenerator.class.getResourceAsStream(FLOW_XML_PATH);
     Source source = new StreamSource(inputStream);
     Unmarshaller jaxbUnmarshaller = jaxbContext.createUnmarshaller();
     JAXBElement<FlowControllerType> root = (JAXBElement<FlowControllerType>) jaxbUnmarshaller
