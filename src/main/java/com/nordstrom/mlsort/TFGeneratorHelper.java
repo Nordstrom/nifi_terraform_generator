@@ -52,6 +52,9 @@ public class TFGeneratorHelper {
       if (args.length == 3) {
         xmlFilePath = args[2];
       }
+      if (args.length == 4) {
+        TFGeneratorHelperUtil.setDestinationPath(args[3]);
+      }
       // Get the JAXB element by parsing the flow xml
       JAXBElement<FlowControllerType> root = parseFlowXml(xmlFilePath);
       FlowControllerType flowController = root.getValue();
