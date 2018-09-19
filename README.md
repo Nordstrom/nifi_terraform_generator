@@ -24,12 +24,12 @@ https://github.com/Glympse/terraform-provider-nifi/
 * From an existing nifi cluster, extract the flow.xml.gz from master node located in the folder - `{Nifi HOME}/conf`.
 * Copy the extracted flow.xml to a folder on your machine on which you will be running the project.  
 * Create a destination folder on your machine on which you want the generated terraform files.
-* Download the project source code and navigate to the root folder of the project (folder on which pom.xml is present)
+* Download the nifi_terraform_generator source code and navigate to the root folder of the project (folder on which pom.xml is present)
 * Run the command ```mvn clean compile exec:java -Dexec.args="<nifi_machine> <root_element> <source folder> <destination folder>"```
-  ...nifi_machine - the hostname and port combination of nifi , say localhost:8080
-  root_element - The id of the root element of Nifi cluster on which the terraform file should create the nifi flow. This can be located on the flow.xml that we fetched from the cluster in the above step. A sample entry - <rootGroup> <id>34900dd5-0161-1000-b7a0-ed93f5fa490d</id>
-  source folder - path on which the flow.xml is present on the running machine 
-  destination folder - folder on which terraform files needs to be generated... 
+  - nifi_machine       : the hostname and port combination of nifi , say localhost:8080
+  - root_element       : The id of the root element of Nifi cluster on which the terraform file should create the nifi flow. This can be located on the flow.xml that we fetched from the cluster in the above step. A sample entry - <rootGroup> <id>34900dd5-0161-1000-b7a0-ed93f5fa490d</id>
+  - source folder      : path on which the flow.xml is present on the running machine 
+  - destination folder : folder on which terraform files needs to be generated... 
 * terraform files will be generated at the destination folder. 
 
 ## How to use terraform scripts to setup a flow on NIFI cluster?
