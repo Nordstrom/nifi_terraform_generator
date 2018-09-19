@@ -579,6 +579,7 @@ public final class ElementGeneratorUtil {
    * @param propertyKey String
    * @return String - value of property
    */
+  @Deprecated
   public static String getProperty(final String propertyKey) {
     Properties prop = new Properties();
     InputStream input = null;
