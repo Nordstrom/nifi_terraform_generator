@@ -30,6 +30,22 @@ public class TFGeneratorHelperUtil {
 
   private static final String NIFI_HOST = "${var.nifi_host}";
   private static final String FLOW_XML_PATH = "/flowfiles/flow.xml";
+  private static final String DEFAULT_DESTINATION_PATH = "..";
+  private static String destinationPath = DEFAULT_DESTINATION_PATH;
+
+  /**
+   * @return the destinationPath
+   */
+  public static String getDestinationPath() {
+    return destinationPath;
+  }
+
+  /**
+   * @param destinationPath the destinationPath to set
+   */
+  public static void setDestinationPath(String destinationPath) {
+    TFGeneratorHelperUtil.destinationPath = destinationPath;
+  }
 
   /**
    * Method to generate terraform scripts corresponding to the common elements.
@@ -67,7 +83,8 @@ public class TFGeneratorHelperUtil {
       StringBuilder childElementsScript = new StringBuilder(value);
       String finalTerraformScriptChild =
           ElementGeneratorUtil.generateFinalTFScript(childElementsScript, rootElementId);
-      writeToAFile("../" + mapEntry.getKey() + ".tf", finalTerraformScriptChild);
+      writeToAFile(getDestinationPath() + File.separator + mapEntry.getKey() + ".tf",
+          finalTerraformScriptChild);
 
     }
 
@@ -80,7 +97,8 @@ public class TFGeneratorHelperUtil {
     // Generate only if some elements are present(possibility
     // negligible)
     if (commonElementsScript.length() > 0) {
-      writeToAFile("../common.tf", commonElementsScript.toString());
+      writeToAFile(getDestinationPath() + File.separator + "common.tf",
+          commonElementsScript.toString());
     }
   }
 
@@ -177,8 +195,9 @@ public class TFGeneratorHelperUtil {
 
     String variablesContent = VariablesTFGenerator.generateVariablesTF(nifiMachine, rootElementId);
 
-    writeToAFile("../variables.tf", variablesContent);
-    writeToAFile("../main.tf", provider + finalTerraformScriptParent);
+    writeToAFile(getDestinationPath() + File.separator + "variables.tf", variablesContent);
+    writeToAFile(getDestinationPath() + File.separator + "main.tf",
+        provider + finalTerraformScriptParent);
   }
 
   /**
@@ -190,9 +209,16 @@ public class TFGeneratorHelperUtil {
    */
   public static void writeToAFile(final String filePath, final String fileContent)
       throws IOException {
-    String path = TFGenerator.class.getResource("/").getFile();
-    File file = new File(path + filePath);
-    FileUtils.writeStringToFile(file, fileContent);
+
+    if (DEFAULT_DESTINATION_PATH.equals(getDestinationPath())) {
+      String path = TFGenerator.class.getResource("/").getFile();
+      File file = new File(path + filePath);
+      FileUtils.writeStringToFile(file, fileContent);
+    } else {
+      System.out.println(filePath);
+      File file = new File(filePath);
+      FileUtils.writeStringToFile(file, fileContent);
+    }
   }
 
 }
