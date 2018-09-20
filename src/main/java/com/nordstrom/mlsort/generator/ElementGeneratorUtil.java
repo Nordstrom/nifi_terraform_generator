@@ -6,6 +6,7 @@ import org.apache.commons.lang3.StringUtils;
 import org.apache.commons.text.CharacterPredicates;
 import org.apache.commons.text.RandomStringGenerator;
 import com.nordstrom.mlsort.TFGenerator;
+import com.nordstrom.mlsort.TFGeneratorHelperUtil;
 import com.nordstrom.mlsort.jaxb.ConnectionType;
 import com.nordstrom.mlsort.jaxb.ControllerServiceType;
 import com.nordstrom.mlsort.jaxb.FunnelType;
@@ -398,11 +399,11 @@ public final class ElementGeneratorUtil {
 
     }
 
-    String path = TFGenerator.class.getResource("/").getFile();
     // Write remote connections to a separate file
     if (remoteConnections.length() > 0) {
-      File remoteConnectionsFile = new File(path + "../remoteconnections.tf");
-      FileUtils.writeStringToFile(remoteConnectionsFile, remoteConnections.toString());
+      TFGeneratorHelperUtil.writeToAFile(
+          TFGeneratorHelperUtil.getDestinationPath() + File.separator + "remoteconnections.tf",
+          remoteConnections.toString());
     }
     return finalTFHolder.toString();
   }

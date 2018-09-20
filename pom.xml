@@ -85,6 +85,7 @@
 						<exclude>**/*Style.*</exclude>
 						<exclude>**/*Styles.*</exclude>
 						<exclude>**/*VersionControlInformation.*</exclude>
+						<exclude>**/*NifiApiUtil.*</exclude>
 					</excludes>
 				</configuration>
 				<executions>
@@ -119,6 +120,7 @@
 					<consoleOutput>true</consoleOutput>
 					<failsOnError>true</failsOnError>
 					<linkXRef>false</linkXRef>
+					<excludes>**/jaxb/**/*</excludes>
 				</configuration>
 			</plugin>
 			<plugin>
