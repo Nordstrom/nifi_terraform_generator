@@ -28,25 +28,18 @@ https://github.com/Glympse/terraform-provider-nifi/
 * Select a machine which has access to the nifi cluster through web api calls (no firewall restriction)
 * The machine should have java 1.8 and maven 3+ installed
 * Download the source code and run the command ```mvn clean install``` from the root folder of the project (the folder at which pom.xml file is present)
-* An executable jar file - nifi_terraform_generator-1.1-jar-with-dependencies.jar will get generated in the target folder of the project
-   
-## Project configuration
-Configuration parameters to the project can be supplied through a properties file. The details of the configuration parameters in the properties file and a sample entry is given below     
+* An executable jar file - nfi_terraform_generator-1.1-jar-with-dependencies.jar will get generated in the target folder of the project
+* Configuration parameters to the project can be supplied through a properties file. The details of the configuration parameters in the properties file and a sample entry is explained in the respective sections
+
+## How to generate terraform scripts of a nifi flow
 ### Terraform file generator config
 * terraform - a flag to control the generation of terraform files. T for enabling and F disabling terraform generation
 * nifi_machine - the hostname and port configuration of the nifi cluster. A sample entry - 172.16.71.119:9090
 * root_element - the id of the root element of Nifi cluster on which the terraform file should create the nifi flow. This can be located on the configuration flow.xml that present in the nifi cluster in the xpath rootGroup > id. A sample entry - f17a831b-0165-1000-0db2-ee60c718dec2
 * source_xml_path - the path of the nifi configuration flow.xml which should be supplied as an input for terraform  generation. This file can be extracted from nifi cluster root machine present in the location `{Nifi HOME}/conf`. A sample entry - D:\\workspace\\flow.xml
 * destination_folder_path - the path at which the generated files will be present. A sample entry - D:\\workspace\\generated
-### Curl commands generator config for stopping/starting components
-* generate - a flag to control the generation of curl commands files. T for enabling and F disabling curl commands generation
-* processors_to_stop - the comma separated processor names on which need to be stopped before making a nifi flow change. A sample entry - PCR_39S7VK_ConsumeKafka,PCR_39S7VK_GenerateFlowFile. curl commands to stop processors will be generated on the file destination_folder_path/curl_stop_processors.sh
-* deploy_process_groups - the comma separated process group names impacted by the nifi flow modification. All the processors, controller services, ports, process groups etc needs to be disabled/stopped before doing any modification. The stop and start curl commands of these components will be generated on files curl_stop.sh and curl_start.sh respectively at destination_folder_path. A sample entry - PGP_B65B7Q_Read_Kafka_And_Write2Folder,PGP_H76388_GenerateFile_And_Write2Kafka
-### Curl commands generator config for monitoring
-* monitor - a flag to control the monitoring of messages. T for enabling and F disabling monitoring
-* monitor_process_groups - the comma separated process group names which needs to be monitored. The count of messages present on the connectors between processors will be shown in monitoring. To avoid data loss we should wait till all the messages in the connectors get processed, before doing any modification in the flow. A sample entry - PGP_B65B7Q_Read_Kafka_And_Write2Folder,PGP_H76388_GenerateFile_And_Write2Kafka
 
-## How to generate terraform scripts of a nifi flow
+### Execution Steps
 - Step 1 : From an existing nifi cluster, extract the flow.xml.gz from master node located in the folder - `{Nifi HOME}/conf`.
 - Step 2 : Copy the extracted flow.xml to a folder on your machine on which you will be running the project.
 - Step 3 : Create a configuration file and make the configuration entries mentioned under the section 'Terraform file generator config'
@@ -55,6 +48,12 @@ Configuration parameters to the project can be supplied through a properties fil
 The terraform files will get in the configured destination folder
 
 ## How to generate curl commands
+### Curl commands generator config for stopping/starting components
+* generate - a flag to control the generation of curl commands files. T for enabling and F disabling curl commands generation
+* processors_to_stop - the comma separated processor names on which need to be stopped before making a nifi flow change. A sample entry - PCR_39S7VK_ConsumeKafka,PCR_39S7VK_GenerateFlowFile. curl commands to stop processors will be generated on the file destination_folder_path/curl_stop_processors.sh
+* deploy_process_groups - the comma separated process group names impacted by the nifi flow modification. All the processors, controller services, ports, process groups etc needs to be disabled/stopped before doing any modification. The stop and start curl commands of these components will be generated on files curl_stop.sh and curl_start.sh respectively at destination_folder_path. A sample entry - PGP_B65B7Q_Read_Kafka_And_Write2Folder,PGP_H76388_GenerateFile_And_Write2Kafka
+
+### Execution Steps
 On executing the terraform scripts(explained in the section - How to use terraform scripts to setup a flow on NIFI cluster), all components will get created, however the process groups has to be started explicitly. Also for making any modification on a processor/process group we might have to stop all the source processors and wait till messages get processed. Post this we might have to stop or disable the impacted processors, controller services, ports or even the process groups itself. Curl commands can be sent to Nifi api to achieve this. The steps to generate these curl commands are given below.
 - Step 1 : Identify the name of the processors and process groups which needs to modified.
 - Step 2 : Create a configuration file and make the configuration entries mentioned under the section 'Curl commands generator config for stopping/starting components'
@@ -64,7 +63,12 @@ The curl commands to stop processors, start and stop process groups and other co
 PS :- Since these commands are getting generated dynamically through nifi api calls, it is mandatory to have the connectivity from the source machine to nifi cluster. Also make sure you generate curl commands after each change you make on the nifi flow, to get the latest version number updated in curl commands.           
 
 ## How to do monitoring
-Monitoring is limited to displaying the count of messages in process. This is to aid any change in nifi flow. To avoid data loss we should make sure that there is no ongoing messages before making any change on nifi flow.    
+Monitoring is limited to displaying the count of messages in process. This is to aid any change in nifi flow. To avoid data loss we should make sure that there is no ongoing messages before making any change on nifi flow.
+### Curl commands generator config for monitoring
+* monitor - a flag to control the monitoring of messages. T for enabling and F disabling monitoring
+* monitor_process_groups - the comma separated process group names which needs to be monitored. The count of messages present on the connectors between processors will be shown in monitoring. To avoid data loss we should wait till all the messages in the connectors get processed, before doing any modification in the flow. A sample entry - PGP_B65B7Q_Read_Kafka_And_Write2Folder,PGP_H76388_GenerateFile_And_Write2Kafka
+
+### Execution Steps    
 - Step 1 : Identify the name of the process groups which needs to monitored.
 - Step 2 : Create a configuration file and make the configuration entries mentioned under the section 'Curl commands generator config for monitoring'
 - Step 3 : As explained in the section 'Project setup', generate the file nifi_terraform_generator-1.1-jar-with-dependencies.jar
