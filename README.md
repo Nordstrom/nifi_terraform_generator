@@ -114,10 +114,6 @@ PS :- Since these commands are getting executed through nifi api calls, it is ma
 The same executable jar file and the same configuration file can be used for all the 3 actions, even though mentioned separately.  
 
 
-### Terraform Script Generation
+### Components/Actors of terraform nifi deployment 
 
-![Terraform Generation](./Terraform_Script_Generation.png)
-
-### Nifi Production deployment using terraform
-
-![Nifi Prod deployment using Terraform](./Nifi_Production_deployment_using_terraform.png)
+![Terraform Nifi Deployment](./Terraform_Nifi_Deployment.png)
