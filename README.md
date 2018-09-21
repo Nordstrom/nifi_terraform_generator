@@ -42,8 +42,8 @@ https://github.com/Glympse/terraform-provider-nifi/
 ### Execution Steps
 - Step 1 : From an existing nifi cluster, extract the flow.xml.gz from master node located in the folder - `{Nifi HOME}/conf`.
 - Step 2 : Copy the extracted flow.xml to a folder on your machine on which you will be running the project.
-- Step 3 : Create a configuration file and make the configuration entries mentioned under the section 'Terraform file generator config'
-- Step 4 : As explained in the section 'Project setup', generate the file nifi_terraform_generator-1.1-jar-with-dependencies.jar
+- Step 3 : Create a configuration file and make the configuration entries mentioned under the section **'Terraform file generator config'**
+- Step 4 : As explained in the section **'Project setup'**, generate the file nifi_terraform_generator-1.1-jar-with-dependencies.jar
 - Step 5 : Generate terraform scripts using the command ```java -jar nifi_terraform_generator-1.1-jar-with-dependencies.jar <path to the configuration file>```  
 The terraform files will get in the configured destination folder
 
@@ -54,10 +54,10 @@ The terraform files will get in the configured destination folder
 * deploy_process_groups - the comma separated process group names impacted by the nifi flow modification. All the processors, controller services, ports, process groups etc needs to be disabled/stopped before doing any modification. The stop and start curl commands of these components will be generated on files curl_stop.sh and curl_start.sh respectively at destination_folder_path. A sample entry - PGP_B65B7Q_Read_Kafka_And_Write2Folder,PGP_H76388_GenerateFile_And_Write2Kafka
 
 ### Execution Steps
-On executing the terraform scripts(explained in the section - How to use terraform scripts to setup a flow on NIFI cluster), all components will get created, however the process groups has to be started explicitly. Also for making any modification on a processor/process group we might have to stop all the source processors and wait till messages get processed. Post this we might have to stop or disable the impacted processors, controller services, ports or even the process groups itself. Curl commands can be sent to Nifi api to achieve this. The steps to generate these curl commands are given below.
+On executing the terraform scripts(explained in the section - **'How to use terraform scripts to setup a flow on NIFI cluster'**), all components will get created, however the process groups has to be started explicitly. Also for making any modification on a processor/process group we might have to stop all the source processors and wait till the ongoing messages get processed. Post this we might have to stop or disable the impacted processors, controller services, ports or even the process groups itself before making any modification. We can achieve this by sending curl commands to Nifi Api. The steps to generate these curl commands are given below.
 - Step 1 : Identify the name of the processors and process groups which needs to modified.
-- Step 2 : Create a configuration file and make the configuration entries mentioned under the section 'Curl commands generator config for stopping/starting components'
-- Step 3 : As explained in the section 'Project setup', generate the file nifi_terraform_generator-1.1-jar-with-dependencies.jar
+- Step 2 : Create a configuration file and make the configuration entries mentioned under the section **'Curl commands generator config for stopping/starting components'**
+- Step 3 : As explained in the section **'Project setup'**, generate the file nifi_terraform_generator-1.1-jar-with-dependencies.jar
 - Step 4 : Generate curl commands using the command ```java -jar nifi_terraform_generator-1.1-jar-with-dependencies.jar <path to the configuration file>```
 The curl commands to stop processors, start and stop process groups and other components will get generated on the destination    
 PS :- Since these commands are getting generated dynamically through nifi api calls, it is mandatory to have the connectivity from the source machine to nifi cluster. Also make sure you generate curl commands after each change you make on the nifi flow, to get the latest version number updated in curl commands.           
@@ -70,8 +70,8 @@ Monitoring is limited to displaying the count of messages in process. This is to
 
 ### Execution Steps    
 - Step 1 : Identify the name of the process groups which needs to monitored.
-- Step 2 : Create a configuration file and make the configuration entries mentioned under the section 'Curl commands generator config for monitoring'
-- Step 3 : As explained in the section 'Project setup', generate the file nifi_terraform_generator-1.1-jar-with-dependencies.jar
+- Step 2 : Create a configuration file and make the configuration entries mentioned under the section **'Curl commands generator config for monitoring'**
+- Step 3 : As explained in the section **'Project setup'**, generate the file nifi_terraform_generator-1.1-jar-with-dependencies.jar
 - Step 4 : Generate curl commands using the command ```java -jar nifi_terraform_generator-1.1-jar-with-dependencies.jar <path to the configuration file>```
 The count of ongoing messages in the connector between processors will be displayed in console
 PS :- Since these commands are getting executed through nifi api calls, it is mandatory to have the connectivity from the source machine to nifi cluster.
@@ -83,26 +83,26 @@ The same executable jar file and the same configuration file can be used for all
 
 ### Create a brand new flow
 * In the development nifi cluster, create the nifi flow which needs to be migrated to production. 
-* Generate tf files as explained in the section - 'How to generate terraform scripts of a nifi flow' using the `flow.xml` file in development nifi cluster.
+* Generate tf files as explained in the section - **'How to generate terraform scripts of a nifi flow'** using the `flow.xml` file in development nifi cluster.
 * Install terraform and terraform-nifi-provider plugin on a machine which has access to production nifi cluster(A machine in production nifi cluster can also be used). 
 * Copy all the terraform files to the terraform machine 
 * Run the following commands to create a cluster in NIFI```
 sudo ./terraform init
 sudo ./terraform plan -out=plan.out
 sudo ./terraform apply plan.out```This will create the entire flow in NIFI.
-* Generate curl commands as explained in the section - 'How to generate curl commands'
+* Generate curl commands as explained in the section - **'How to generate curl commands'**
 * To start all process groups execute the shell script - curl_start.sh. 
 
 ### Update/Modify an existing flow
 * Assuming that the development nifi cluster has the same flow configuration as that in production, we could make the new changes in development cluster. To be on a safer side we could even migrate the production flow to development before making any changes.     
 * Identify the name of the processors and process groups on which the change was done 
-* Generate tf files as explained in the section - 'How to generate terraform scripts of a nifi flow' using the `flow.xml` file in development nifi cluster.
+* Generate tf files as explained in the section - **'How to generate terraform scripts of a nifi flow'** using the `flow.xml` file in development nifi cluster.
 * Install terraform and terraform-nifi-provider plugin on a machine which has access to production nifi cluster(A machine in production nifi cluster can also be used).
 * Copy all the terraform files the terraform machine 
 * Populate the configuration file with the impacted process groups and processors. Also identify the source processors which should be stopped to make sure that there are no processes ongoing when the flow change is being done. 
-* Generate curl commands as explained in the section - 'How to generate curl commands'
+* Generate curl commands as explained in the section - **'How to generate curl commands'**
 * Run the shell script curl_stop_processors.sh to stop all the source processors
-* Do monitoring of the ongoing processes as explained in the section - 'How to do monitoring' 
+* Do monitoring of the ongoing processes as explained in the section - **'How to do monitoring'** 
 * Once all the messages are processed or reached to the destination, stop the process groups using the shell script curl_start.sh  
 * After stopping the process groups the following commands can be used to deploy an update:
 ```
