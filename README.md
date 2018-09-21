@@ -90,8 +90,10 @@ sudo ./terraform apply plan.out
 On executing the terraform scripts(explained in the section - **'How to use terraform scripts to setup a flow on NIFI cluster'**), all components will get created, however the process groups has to be started explicitly. Also for making any modification on a processor/process group we might have to stop all the source processors and wait till the ongoing messages get processed. Post this we might have to stop or disable the impacted processors, controller services, ports or even the process groups itself before making any modification. We can achieve this by sending curl commands to Nifi Api. The steps to generate these curl commands are given below.
 - Step 1 : Identify the name of the processors and process groups which needs to modified.
 - Step 2 : Create a configuration file and make the configuration entries mentioned under the section **'Curl commands generator config for stopping/starting components'**
-- Step 3 : Using the executable jar(refer **'Project setup'**), generate curl commands using the command ```java -jar nifi_terraform_generator-1.1-jar-with-dependencies.jar <path to the configuration file>```
+- Step 3 : Using the executable jar(refer **'Project setup'**), generate curl commands using the command ```java -jar nifi_terraform_generator-1.1-jar-with-dependencies.jar <path to the configuration file>``` 
+
 The curl commands to stop processors, start and stop process groups and other components will get generated on the destination    
+
 PS :- Since these commands are getting generated dynamically through nifi api calls, it is mandatory to have the connectivity from the source machine to nifi cluster. Also make sure you generate curl commands after each change you make on the nifi flow, to get the latest version number updated in curl commands.           
 
 ## How to do monitoring
@@ -104,12 +106,12 @@ Monitoring is limited to displaying the count of messages in process. This is to
 - Step 1 : Identify the name of the process groups which needs to monitored.
 - Step 2 : Create a configuration file and make the configuration entries mentioned under the section **'Curl commands generator config for monitoring'**
 - Step 3 : Using the executable jar(refer **'Project setup'**), generate curl commands using the command ```java -jar nifi_terraform_generator-1.1-jar-with-dependencies.jar <path to the configuration file>```
+
 The count of ongoing messages in the connector between processors will be displayed in console
+
 PS :- Since these commands are getting executed through nifi api calls, it is mandatory to have the connectivity from the source machine to nifi cluster.
 
 The same executable jar file and the same configuration file can be used for all the 3 actions, even though mentioned separately.  
-
-
 
 
 ### Terraform Script Generation
