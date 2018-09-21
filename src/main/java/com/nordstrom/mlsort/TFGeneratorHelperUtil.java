@@ -6,6 +6,7 @@ import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.io.InputStream;
 import java.util.Map;
+import java.util.Properties;
 import java.util.Map.Entry;
 import java.util.Set;
 import javax.xml.bind.JAXBContext;
@@ -220,5 +221,43 @@ public class TFGeneratorHelperUtil {
       FileUtils.writeStringToFile(file, fileContent);
     }
   }
+
+  /**
+   * Method to populate the properties file object with the config file values present in the path.
+   * 
+   * @param configFilePath String
+   * @return Properties - Properties object
+   */
+  public static Properties populateProperties(String configFilePath) {
+    Properties prop = new Properties();
+    InputStream input = null;
+    try {
+      if (StringUtils.isNotBlank(configFilePath)) {
+        input = new FileInputStream(new File(configFilePath));
+      } else {
+        input =
+            TFGeneratorHelperUtil.class.getClassLoader().getResourceAsStream("config.properties");
+      }
+      // load a properties file
+      prop.load(input);
+      for (Object key : prop.keySet()) {
+        System.out.println(key + " = " + prop.getProperty((String) key));
+      }
+
+    } catch (IOException ex) {
+      ex.printStackTrace();
+    } finally {
+      if (input != null) {
+        try {
+          input.close();
+        } catch (IOException e) {
+          e.printStackTrace();
+        }
+      }
+    }
+    return prop;
+
+  }
+
 
 }

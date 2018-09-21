@@ -14,7 +14,7 @@ public class TFGeneratorHelperTest {
 
   @Test
   public void testExecuteMainActions() throws IOException, URISyntaxException, JAXBException {
-    String[] args = new String[1];
+    String[] args = new String[0];
     TFGeneratorHelper.executeMainActions(args);
 
     String path = TFGenerator.class.getResource("/").getFile();
