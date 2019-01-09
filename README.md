@@ -116,4 +116,4 @@ The same executable jar file and the same configuration file can be used for all
 
 ### Components/Actors of terraform nifi deployment 
 
-![Terraform Nifi Deployment](./Terraform_Nifi_Deployment.png)
+![Terraform Nifi Deployment](./Terraform_Nifi_Deployment_New.png)
